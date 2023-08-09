@@ -1,8 +1,10 @@
 const express = require("express");
+const multer = require("multer");
 const postRoutes = express.Router();
 const Post = require("../controllers/postController");
+const uploadMiddleware = multer({ dest: "uploads/" });
 
-postRoutes.post("/", Post.create);
+postRoutes.post("/", uploadMiddleware.single("image"), Post.create);
 
 postRoutes.get("/", Post.getAll);
 
