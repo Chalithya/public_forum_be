@@ -6,7 +6,7 @@ const {
   addComment,
 } = require("../services/postService");
 const { SECRET_KEY } = require("../config/config");
-const loggers = require("../helpers/loggers");
+const logger = require("../helpers/loggers");
 
 exports.create = async (req, res) => {
   try {
@@ -18,7 +18,7 @@ exports.create = async (req, res) => {
 
     res.status(200).json(postDoc);
   } catch (error) {
-    loggers.error(`Create post failed. Error: ${error.message}`, "postController");
+    logger.error(`Create post failed. Error: ${error.message}`, "postController");
     res.status(500).json({ error: error.message });
   }
 };
@@ -29,7 +29,7 @@ exports.getAll = async (req, res) => {
 
     res.status(200).json(posts);
   } catch (error) {
-    loggers.error(`Get all posts failed. Error: ${error.message}`, "postController");
+    logger.error(`Get all posts failed. Error: ${error.message}`, "postController");
     res.status(500).json({ error: error.message });
  }
 };
@@ -40,7 +40,7 @@ exports.getById = async (req, res) => {
 
     res.status(200).json(postDoc);
   } catch (error) {
-    loggers.error(`Get post by id failed. Error: ${error.message}`, "postController");
+    logger.error(`Get post by id failed. Error: ${error.message}`, "postController");
     res.status(500).json({ error: error.message });
   }
 };
@@ -56,7 +56,7 @@ exports.addComment = async (req, res) => {
 
     res.status(200).json(postDoc);
   } catch (error) {
-    loggers.error(`Adding comment failed. Error: ${error.message}`, "postController");
+    logger.error(`Adding comment failed. Error: ${error.message}`, "postController");
     res.status(500).json({ error: error.message });
   }
 };
