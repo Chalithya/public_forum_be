@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const sillyname = require('sillyname');
 const { createUser, findUser } = require("../repository/userRepository");
 const { passwordEncrypter } = require("../helpers/user.helper");
 const { SECRET_KEY } = require("../config/config");
@@ -37,7 +38,8 @@ exports.loginUser = async (data) => {
     const passwordMatch = await bcrypt.compare(password, newUser?.data?.password);
     if (!passwordMatch) throw new Error("Invalid credentials");
 
-    const token = jwt.sign({ username, id: newUser?.data?._id }, SECRET_KEY, {});
+    const funnyName = sillyname();
+    const token = jwt.sign({ username, id: newUser?.data?._id, nickname: funnyName }, SECRET_KEY, {});
 
     newUser.data.token = token;
 
