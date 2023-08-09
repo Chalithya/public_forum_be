@@ -7,7 +7,7 @@ exports.register = async (req, res) => {
 
     res.status(200).json(newUser);
   } catch (error) {
-    loggers.error(`User registration failed. Error: ${error.message}`);
+    loggers.error(`User registration failed. Error: ${error.message}`, "userController");
     res.status(500).json({ error: error.message });
   }
 };
@@ -29,7 +29,7 @@ exports.logOut = (req, res) => {
   try {
     res.clearCookie("token").json("OK");
   } catch (error) {
-    console.error(error);
+    loggers.error(`User logout failed. Error: ${error.message}`, "userController");
     res.status(500).json({ error: "An error occurred" });
   }
 };
