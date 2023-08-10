@@ -42,7 +42,7 @@ exports.loginUser = async (data) => {
     const token = jwt.sign({ username, id: newUser?.data?._id, nickname: funnyName }, SECRET_KEY, {});
 
     newUser.data.token = token;
-    newUser.data.nickname = funnyName;
+    newUser.nickname = funnyName;
 
     logger.info(`User logged in. username: ${username}`, "userService");
     return newUser;

@@ -21,7 +21,7 @@ exports.login = async (req, res) => {
     res.cookie("token", userDoc?.data?.token).status(200).json(userDoc);
   } catch (error) {
     logger.error(`User login failed. Error: ${error.message}`, "userController");
-    res.status(500).json({ error: error.message });
+    res.status(401).json({ error: error.message });
   }
 };
 
