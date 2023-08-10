@@ -1,4 +1,4 @@
-const loggers = require("../helpers/loggers");
+const logger = require("../helpers/loggers");
 const { registerUser, loginUser } = require("../services/userService");
 
 exports.register = async (req, res) => {
@@ -7,7 +7,7 @@ exports.register = async (req, res) => {
 
     res.status(200).json(newUser);
   } catch (error) {
-    loggers.error(`User registration failed. Error: ${error.message}`);
+    logger.error(`User registration failed. Error: ${error.message}`, "userController");
     res.status(500).json({ error: error.message });
   }
 };
@@ -20,8 +20,8 @@ exports.login = async (req, res) => {
 
     res.cookie("token", userDoc?.data?.token).status(200).json(userDoc);
   } catch (error) {
-    loggers.error(`User login failed. Error: ${error.message}`, "userController");
-    res.status(500).json({ error: error.message });
+    logger.error(`User login failed. Error: ${error.message}`, "userController");
+    res.status(401).json({ error: error.message });
   }
 };
 
@@ -29,7 +29,7 @@ exports.logOut = (req, res) => {
   try {
     res.clearCookie("token").json("OK");
   } catch (error) {
-    console.error(error);
+    logger.error(`User logout failed. Error: ${error.message}`, "userController");
     res.status(500).json({ error: "An error occurred" });
   }
 };
